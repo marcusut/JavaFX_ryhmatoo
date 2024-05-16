@@ -1,30 +1,30 @@
 package org.example.javafx_ryhmatoo;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class LetterCell extends ListCell<String> {
-    private Text letterText;
+    private Button letterButton;
 
     public LetterCell() {
         super();
-        letterText = new Text();
-        letterText.setFont(Font.font(20));
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(letterText);
-        stackPane.setOnDragDetected(event -> {
-            Dragboard db = stackPane.startDragAndDrop(TransferMode.MOVE);
+        letterButton = new Button();
+        letterButton.setFont(Font.font(20));
+        setGraphic(letterButton);
+
+        // Set up the drag event for this button
+        letterButton.setOnDragDetected(event -> {
+            Dragboard db = letterButton.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
-            content.putString(letterText.getText());
+            content.putString(letterButton.getText());
             db.setContent(content);
             event.consume();
         });
-        setGraphic(stackPane);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class LetterCell extends ListCell<String> {
             setText(null);
             setGraphic(null);
         } else {
-            letterText.setText(item);
+            letterButton.setText(item);
             setText(null);
         }
     }
