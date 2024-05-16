@@ -5,23 +5,22 @@ import javafx.scene.control.ListCell;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
 public class LetterCell extends ListCell<String> {
-    private Button letterButton;
+    private Button täheNupp;
 
     public LetterCell() {
         super();
-        letterButton = new Button();
-        letterButton.setFont(Font.font(20));
-        setGraphic(letterButton);
+        täheNupp = new Button();
+        täheNupp.setFont(Font.font(20));
+        setGraphic(täheNupp);
 
         // Set up the drag event for this button
-        letterButton.setOnDragDetected(event -> {
-            Dragboard db = letterButton.startDragAndDrop(TransferMode.MOVE);
+        täheNupp.setOnDragDetected(event -> {
+            Dragboard db = täheNupp.startDragAndDrop(TransferMode.MOVE);
             ClipboardContent content = new ClipboardContent();
-            content.putString(letterButton.getText());
+            content.putString(täheNupp.getText());
             db.setContent(content);
             event.consume();
         });
@@ -34,7 +33,7 @@ public class LetterCell extends ListCell<String> {
             setText(null);
             setGraphic(null);
         } else {
-            letterButton.setText(item);
+            täheNupp.setText(item);
             setText(null);
         }
     }

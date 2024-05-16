@@ -1,15 +1,27 @@
 package org.example.javafx_ryhmatoo;
 
-import javafx.event.*;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.input.*;
-import javafx.scene.layout.*;
-import javafx.scene.text.*;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.util.Duration;
+
+import java.util.*;
 
 public class GameUIController {
+
+    private static final int tähtedeArv = 7;
 
 
     private Mäng mäng;
@@ -18,71 +30,85 @@ public class GameUIController {
     private FlowPane lettersPane;
 
     @FXML
-    private HBox wordBox;
+    private FlowPane wordBox;
+
+    @FXML
+    private VBox mainVBox;
 
     @FXML
     private Button submitButton;
 
+    @FXML
+    private Label hoiatus;
+
+    @FXML
+    private Button plussNupp;
+
+    @FXML
+    private VBox specialCharactersBox;
+
     // Initialize the controller
     @FXML
     public void initialize() {
+        mainVBox.setPadding(new Insets(15, 15, 15, 15));
+        initLettersPane();
+        initWordBox();
+        initSpecialCharacters();
+    }
+
+    @FXML
+    private void initLettersPane() {
         lettersPane.setPadding(new Insets(15, 15, 15, 15));
         mäng = new Mäng(); // Create a new game
 
-        // Generate the letters for the player
-        String letters = "";
-        do {
-            letters = "";
-            for (int i = 0; i < 7; i++) {
-                letters += mäng.genereeriÜksTäht();
-            }
-        } while (!mäng.getKontroll().saabTehaSõna(letters));
-
-        for (char letter : letters.toCharArray()) {
-            Button letterButton = new Button(String.valueOf(letter));
-            letterButton.setFont(Font.font(20));
+        List<String> letters = generateLetters();
+        for (String letter : letters) {
+            Button letterButton = createLetterButton(letter);
             lettersPane.getChildren().add(letterButton);
-
-            // Set up the drag event for this button
-            letterButton.setOnDragDetected(event -> {
-                Dragboard db = letterButton.startDragAndDrop(TransferMode.MOVE);
-                ClipboardContent content = new ClipboardContent();
-                content.putString(letterButton.getText());
-                db.setContent(content);
-                event.consume();
-            });
         }
+    }
 
-        // Add "+" button
-        Button plusButton = new Button("+");
-        plusButton.setFont(Font.font(20));
-        lettersPane.getChildren().add(plusButton);
+    @FXML
+    private void addLetter() {
+        String newLetter = mäng.genereeriÜksTäht();
+        Button letterButton = createLetterButton(newLetter);
+        lettersPane.getChildren().add(letterButton);
+    }
 
-        // Set up the action event for the "+" button
-        plusButton.setOnAction(event -> {
-            String newLetter = mäng.genereeriÜksTäht();
-            Button letterButton = new Button(newLetter);
-            letterButton.setFont(Font.font(20));
-            lettersPane.getChildren().add(letterButton);
-        });
-        // Handle the drag over event on the wordBox
-        wordBox.setOnDragOver(new EventHandler<DragEvent>() {
-            @Override
-            public void handle(DragEvent event) {
-                if (event.getGestureSource() != wordBox && event.getDragboard().hasString()) {
-                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-                }
-                event.consume();
+    private List<String> generateLetters() {
+        List<String> letters = new ArrayList<>();
+        Random random = new Random();
+        Set<Character> usedLetters = new HashSet<>();
+        while (letters.size() < tähtedeArv) {
+            char letter = (char) ('a' + random.nextInt(26));
+            while (usedLetters.contains(letter)) {
+                letter = (char) ('a' + random.nextInt(26));
             }
-        });
+            usedLetters.add(letter);
+            String letterString = String.valueOf(letter);
+            //if (mäng.kontroll.saabTehaSõna(letters.stream().map(String::toString).collect(Collectors.toList()) + letterString)) {
+            letters.add(letterString);
+            //}
+        }
+        return letters;
+    }
 
-        // Handle the drag dropped event on the wordBox
+    private void initWordBox() {
+        wordBox.setPadding(new Insets(15, 15, 15, 15));
+        wordBox.setHgap(3);
+        wordBox.setMinHeight(50);
+        wordBox.setOnDragOver(event -> {
+            if (event.getGestureSource() != wordBox && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
         wordBox.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
-                Label letterLabel = new Label(db.getString());
-                wordBox.getChildren().add(letterLabel);
+                Button letterButton = createLetterButton(db.getString());
+                wordBox.getChildren().add(letterButton);
                 success = true;
             }
             event.setDropCompleted(success);
@@ -90,27 +116,135 @@ public class GameUIController {
         });
     }
 
+    private Button createLetterButton(String letter) {
+        Button button = new Button(letter);
+        button.setFont(Font.font(20));
+        button.setOnDragDetected(event -> {
+            Dragboard db = button.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(button.getText());
+            db.setContent(content);
+            event.consume();
+        });
+
+        // Add drag and drop functionality for reordering
+        button.setOnDragOver(event -> {
+            if (event.getGestureSource() != button && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+
+        button.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            if (db.hasString()) {
+                if (wordBox.getChildren().contains(button)) {
+                    int droppedIdx = wordBox.getChildren().indexOf(button);
+                    Button droppedButton = createLetterButton(db.getString());
+                    wordBox.getChildren().add(droppedIdx, droppedButton);
+                    success = true;
+                } else if (lettersPane.getChildren().contains(button)) {
+                    int droppedIdx = lettersPane.getChildren().indexOf(button);
+                    Button droppedButton = createLetterButton(db.getString());
+                    lettersPane.getChildren().add(droppedIdx, droppedButton);
+                    success = true;
+                }
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
+
+        button.setOnDragDone(event -> {
+            if (event.getTransferMode() == TransferMode.MOVE) {
+                ((Pane) button.getParent()).getChildren().remove(button);
+            }
+        });
+
+        button.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                Button letterButton = createLetterButton(button.getText());
+                wordBox.getChildren().add(letterButton);
+                ((Pane) button.getParent()).getChildren().remove(button);
+            }
+        });
+
+        return button;
+    }
+
+
+    private Button looPlussNupp() {
+        Button button = new Button("+");
+        button.setFont(Font.font(20));
+        button.setOnAction(event -> {
+            String newLetter = mäng.genereeriÜksTäht();
+            Button letterButton = createLetterButton(newLetter);
+            lettersPane.getChildren().add(letterButton);
+        });
+        return button;
+    }
+
     @FXML
-    private void submitWord () {
-        String word = "";
+    private void submitWord() {
+        StringBuilder word = new StringBuilder();
         for (Node node : wordBox.getChildren()) {
-            if (node instanceof Label) {
-                word += ((Label) node).getText();
+            if (node instanceof Button) {
+                word.append(((Button) node).getText());
             }
         }
 
-        // Check if the word is valid
-        if (mäng.arvaSõna(word)) { // Use the game's method to check the word
-            // Update the game state
-            System.out.println("Valid word: " + word);
+        String wordString = word.toString();
+        if (mäng.arvaSõna(wordString)) {
+            System.out.println("Õige sõna: " + wordString);
+            showCorrect();
+            // Clear the wordBox
+            wordBox.getChildren().clear();
         } else {
-            System.out.println("Invalid word: " + word);
+            System.out.println("Vale sõna: " + wordString);
+            showWarning();
+        }
+        while (lettersPane.getChildren().size() < tähtedeArv) {
+            addLetter();
         }
     }
 
-    public boolean isValidWord (String word){
-        // Check if the word exists in the dictionary
-        // You can use the Kontroll class from your original code to check if the word is valid
-        return mäng.kontroll.saabTehaSõna(word); // Use the Kontroll instance to check the word
+    private void showCorrect() {
+        hoiatus.setFont(Font.font(20));
+        hoiatus.setText("✅");
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> hoiatus.setText(""));
+        pause.play();
+    }
+
+    private void showWarning() {
+        hoiatus.setFont(Font.font(20));
+        hoiatus.setText("⛔");
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> hoiatus.setText(""));
+        pause.play();
+    }
+
+    private void initSpecialCharacters() {
+        Button plusButton = createSpecialCharacterButton("+", "addLetter");
+        Button dashButton = createSpecialCharacterButton("-", null);
+        Button spaceButton = createSpecialCharacterButton(" ", null);
+        specialCharactersBox.getChildren().addAll(plusButton, dashButton, spaceButton);
+    }
+
+    private Button createSpecialCharacterButton(String character, String action) {
+        Button button = new Button(character);
+        button.setFont(Font.font(20));
+        if (action != null) {
+            button.setOnAction(event -> addLetter());
+        } else {
+            button.setOnDragDetected(event -> {
+                Dragboard db = button.startDragAndDrop(TransferMode.COPY);
+                ClipboardContent content = new ClipboardContent();
+                content.putString(button.getText());
+                db.setContent(content);
+                event.consume();
+            });
+        }
+        return button;
     }
 }

@@ -65,6 +65,6 @@ Autorid: Marcus-Imre Tikerpe, Heidi Hein
     Marcus - ~4h
     Heidi -
 
-- Ei saanud hakkama draggimisega.
+- Ei saanud hakkama draggimisega. Mingipärast siin kontroll ei tööta, enne olik out of memory siis parandasin ära ning 10 minutit buildis mul korra, ikka ei saanud tööle.
 
 - Testimine: Ei saanud õieti teha seda, sest see ei tööta.

@@ -10,13 +10,13 @@ class Lemmad {
     Map<String, String> lemmad = new HashMap<>();
 
     public Lemmad() {
-        loefailist("src/main/resources/lemmad.txt");
+        loefailist("src/main/resources/org/example/javafx_ryhmatoo/lemmad.txt");
     }
 
     void loefailist(String failinimi) {
         try {
             File fail = new File(failinimi);
-            Scanner scanner = new Scanner(fail, "windows-1252");
+            Scanner scanner = new Scanner(fail, "UTF-8");
             while (scanner.hasNextLine()) {
                 String lemma = scanner.nextLine();
                 lemmad.put(lemma.toLowerCase(), lemma);

@@ -17,6 +17,15 @@ ext {
     junitVersion = '5.10.0'
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
+    }
+}
+
+
 sourceCompatibility = '21'
 targetCompatibility = '21'
 
@@ -26,7 +35,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'org.example.javafx_ryhmatoo'
-    mainClass = 'org.example.javafx_ryhmatoo.HelloApplication'
+    mainClass = 'org.example.javafx_ryhmatoo.GameUI'
 }
 
 javafx {
