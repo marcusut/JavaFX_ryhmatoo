@@ -15,6 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -24,6 +27,8 @@ public class GameUIController {
 
 
     private Mäng mäng;
+
+//    List<String> arvatudSõnad;
 
     @FXML
     private FlowPane lettersPane;
@@ -37,11 +42,13 @@ public class GameUIController {
     @FXML
     private Label hoiatus;
 
+
     @FXML
     public void initialize() {
         mainVBox.setPadding(new Insets(15, 15, 15, 15));
         initLettersPane();
         initWordBox();
+
     }
 
     @FXML
@@ -171,6 +178,8 @@ public class GameUIController {
         String wordString = word.toString();
         if (mäng.arvaSõna(wordString)) {
             System.out.println("Õige sõna: " + wordString);
+//            arvatudSõnad.add(mäng.lemmad.getSõnaOriginaalVorm(wordString));
+//            mäng.lemmad.eemaldaSõna(wordString);
             showCorrect();
             wordBox.getChildren().clear();
         } else {
@@ -197,4 +206,25 @@ public class GameUIController {
         pause.setOnFinished(event -> hoiatus.setText(""));
         pause.play();
     }
+
+//    public void writeToLog() {
+//        FileWriter writer = null;
+//        try {
+//            writer = new FileWriter("logi.txt", true);
+//            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+//            for (String sõna : arvatudSõnad) {
+//                writer.write(timeStamp + " - " + sõna + "\n");
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (writer != null) {
+//                try {
+//                    writer.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
 }

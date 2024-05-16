@@ -62,9 +62,8 @@ Autorid: Marcus-Imre Tikerpe, Heidi Hein
 - Tegemise protsess: Tegin
 
 - Rühmaliikmete panus:
-    Marcus - ~4h
+    Marcus - ~9-10h
     Heidi -
 
-- Ei saanud hakkama draggimisega. Mingipärast siin kontroll ei tööta, enne olik out of memory siis parandasin ära ning 10 minutit buildis mul korra, ikka ei saanud tööle.
-
-- Testimine: Ei saanud õieti teha seda, sest see ei tööta.
+- Polnud enam väga aega. Ei saanud time attack gamemode'i implementeerida ja faili kirjutamisega ei saanud hakkama. Villand juba JavaFX'ist.
+- Testimine: Panin tööle, muutsin akna suurusi, mängisin, vajutasin nuppe.
