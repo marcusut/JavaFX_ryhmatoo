@@ -1,0 +1,70 @@
+Autorid: Marcus-Imre Tikerpe, Heidi Hein
+
+- Reeglid on tutvustatud mängu sees.
+
+- Projekti kirjeldus: README.md
+
+- Klasside tutvustused:
+
+	Main (vana)
+		Peaklass
+	Main klassi meetodid:
+		Pole. See klass on lihtsalt peaklass kus kutsutakse välja Mäng.alustaMäng() meetodit.
+
+	Lemmad (vana)
+		Klass tekstifailist lemmade HashMap-i lugemiseks, kuhu säilitatakse nende originaal välimus ja vastand väiketähtedes.
+	Lemmad klassi meetodid:
+		loefailist(): loeb sõnad failist ja salvestab need HashMap-i lemmad abil. Sõna on kirjutatud väikest tähtedest ja eraldatud reavahetusega.;
+		sõnaEksisteerib(): kontrollib, kas sõna on olemas HashMap-is lemmad;
+		getSõnaOriginaalVorm(): tagastab sõna originaalvormi, kui sõna on olemas HashMap-is lemmad;
+		eemaldaSõna(): eemaldab sõna HashMap-ist lemmad.
+
+	Kontroll (vana)
+		Kasutatud kontrolliks, kas tähtedest saab moodustada sõna.
+	Kontroll klassi meetodid:
+		genereeriKombinatsioonid(): genereerib kõik tähtekombinaatsioonid antud tähtede puhul ning salvestab need kombinatsioonid listi. Rekursiivne.;
+		saabTehaSõna():  kontrollib, kas antud tähedest saab moodustada sõna. See kasutab genereeriKombinatsioonid meetodit genereerides kõik mahulikud tähtekombinaatsioonid ning kontrollib, kas need sõnad on olemas Lemmad klassis.
+
+	Mäng (vana)
+		Mängu loogika.
+	Mäng klassi meetodid:
+
+		Mäng(): Vaikeväärtustab tühjad hulgad ja muutujad;
+		alustaMäng(): Meetod mängu käivitamiseks, kutsub välja meetodi valiMänguTüüp();
+		valiMänguTüüp(): Alustab vastavalt mängija sisestusele vastava mängu režiimi, või sulgeb mängu;
+		mänguTsükkel(): Mängu tsükkel;
+		genereeriTähed(): Genereerib tähtede massiivi. Kasutuses mängu alguses;
+		genereeriÜksTäht(): Genereerib tähti vastavalt vajadusele, kui on liiga vähe tähti, kui tähtedest ei saa moodustada sõna, kui mängija küsib uut tähte;
+		sõnaOnMoodustatudPakutudTähtedest(): Kontrollib, kas mängija sisestatud sõna on moodustatud temale pakutud tähtedest; 
+		arvaSõna(): Kontrollib, kas sõna on õige;
+		mängijaArvab(): Reageerib mängija sisestatud tekstile. Kas on sisestatud käsk mängu sulgemiseks, menüüsse minekuks, tähe juurde küsimiseks, kas muul juhul on sõna moodustatud pakutud tähtedest, kas sisestatud sõna on lemmad.txt failis;
+		eemaldaKasutatudTähed(): Eemaldab tähed, mida mängija kasutas ära sõna õieti arvamisel.
+
+	EndlessMode (vana)
+	EndlessMode klassi meetodid:
+		endlessMode(): alustab mängu endless režiimis koos tutvustusega. Ei ole rohkem vaja sest see on kõige tavalisem mängurežiim;
+
+	TimeAttack (vana)
+		Mängu aja peale mängimise mänguloogika alternatiiv.
+	TimeAttack klassi meetodid:
+		timeAttack(): alustab mängu time attack režiimis koos tutvustusega ja paneb käima aja;
+		@Override mängijaArvab(): muudetud meetod Mäng klassi mängijaArvab() meetodist, et see arvestaks aja juurde andmise ma maha võtmisega;
+
+	LetterCell
+		Loob tähtedele oma kastikese mida PEAKS saama liigutada.
+
+	GameUI
+		Mängu/UI käivitamiseks.
+
+	GameUIController
+		FXML UI Controller ehk põhimängu UI controller.
+
+- Tegemise protsess: Tegin
+
+- Rühmaliikmete panus:
+    Marcus - ~4h
+    Heidi -
+
+- Ei saanud hakkama draggimisega.
+
+- Testimine: Ei saanud õieti teha seda, sest see ei tööta.
