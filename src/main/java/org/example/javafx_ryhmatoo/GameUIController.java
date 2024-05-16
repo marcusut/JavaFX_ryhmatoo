@@ -10,14 +10,13 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.util.*;
+
 
 public class GameUIController {
 
@@ -36,24 +35,13 @@ public class GameUIController {
     private VBox mainVBox;
 
     @FXML
-    private Button submitButton;
-
-    @FXML
     private Label hoiatus;
 
-    @FXML
-    private Button plussNupp;
-
-    @FXML
-    private VBox specialCharactersBox;
-
-    // Initialize the controller
     @FXML
     public void initialize() {
         mainVBox.setPadding(new Insets(15, 15, 15, 15));
         initLettersPane();
         initWordBox();
-        initSpecialCharacters();
     }
 
     @FXML
@@ -127,7 +115,6 @@ public class GameUIController {
             event.consume();
         });
 
-        // Add drag and drop functionality for reordering
         button.setOnDragOver(event -> {
             if (event.getGestureSource() != button && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.MOVE);
@@ -172,18 +159,6 @@ public class GameUIController {
         return button;
     }
 
-
-    private Button looPlussNupp() {
-        Button button = new Button("+");
-        button.setFont(Font.font(20));
-        button.setOnAction(event -> {
-            String newLetter = mäng.genereeriÜksTäht();
-            Button letterButton = createLetterButton(newLetter);
-            lettersPane.getChildren().add(letterButton);
-        });
-        return button;
-    }
-
     @FXML
     private void submitWord() {
         StringBuilder word = new StringBuilder();
@@ -197,7 +172,6 @@ public class GameUIController {
         if (mäng.arvaSõna(wordString)) {
             System.out.println("Õige sõna: " + wordString);
             showCorrect();
-            // Clear the wordBox
             wordBox.getChildren().clear();
         } else {
             System.out.println("Vale sõna: " + wordString);
@@ -222,29 +196,5 @@ public class GameUIController {
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> hoiatus.setText(""));
         pause.play();
-    }
-
-    private void initSpecialCharacters() {
-        Button plusButton = createSpecialCharacterButton("+", "addLetter");
-        Button dashButton = createSpecialCharacterButton("-", null);
-        Button spaceButton = createSpecialCharacterButton(" ", null);
-        specialCharactersBox.getChildren().addAll(plusButton, dashButton, spaceButton);
-    }
-
-    private Button createSpecialCharacterButton(String character, String action) {
-        Button button = new Button(character);
-        button.setFont(Font.font(20));
-        if (action != null) {
-            button.setOnAction(event -> addLetter());
-        } else {
-            button.setOnDragDetected(event -> {
-                Dragboard db = button.startDragAndDrop(TransferMode.COPY);
-                ClipboardContent content = new ClipboardContent();
-                content.putString(button.getText());
-                db.setContent(content);
-                event.consume();
-            });
-        }
-        return button;
     }
 }

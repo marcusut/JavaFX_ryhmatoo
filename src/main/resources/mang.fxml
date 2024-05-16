@@ -6,28 +6,32 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gameBoard" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="org.example.javafx_ryhmatoo.GameUIController">
+<AnchorPane fx:id="gameBoard" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx_ryhmatoo.GameUIController">
     <children>
         <VBox fx:id="mainVBox" spacing="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.topAnchor="10">
             <children>
-                <HBox spacing="10">
+                <HBox spacing="10" VBox.vgrow="ALWAYS">
                     <children>
-                        <Label text="Saadaval tähed:" />
-                        <FlowPane fx:id="lettersPane" />
-                        <VBox fx:id="specialCharactersBox" />
+                        <Label text="Saadaval tähed:" HBox.hgrow="ALWAYS" />
+                        <FlowPane fx:id="lettersPane" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="plusButton" alignment="CENTER_RIGHT" onAction="#addLetter" text="+" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
                     </children>
                 </HBox>
-                <HBox spacing="10">
+                <HBox spacing="10" VBox.vgrow="ALWAYS">
                     <children>
-                        <Label text="Lohista tähti, et luua sõna:" />
-                        <FlowPane fx:id="wordBox" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;"/>
+                        <Label text="Lohista tähti, et luua sõna:" HBox.hgrow="ALWAYS" />
+                        <FlowPane fx:id="wordBox" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-style: solid;" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
-                <HBox spacing="10">
+                <HBox spacing="10" VBox.vgrow="ALWAYS">
                     <children>
-                        <Button fx:id="submitButton" onAction="#submitWord" text="Sisesta sõna" />
-                        <Label fx:id="hoiatus" />
+                        <Button fx:id="submitButton" onAction="#submitWord" text="Sisesta sõna" HBox.hgrow="ALWAYS" />
+                        <Label fx:id="hoiatus" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
             </children>
