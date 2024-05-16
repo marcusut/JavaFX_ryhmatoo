@@ -2,10 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
-
 <VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.javafx_ryhmatoo.MainMenuController">
     <children>
-        <Button text="Mängi" onAction="#startGameUI" />
-        <Button text="Sulge" onAction="#closeGame" />
+        <Button fx:id="playButton" text="Mängi" onAction="#startGameUI" />
+        <Button fx:id="closeButton" text="Sulge" onAction="#closeGame" />
     </children>
 </VBox>

@@ -22,6 +22,11 @@ public class MainMenuController {
     @FXML
     public void closeGame() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        if (stage != null) {
+            stage.close();
+        } else {
+            System.out.println("Error: Stage is null");
+        }
     }
+
 }
