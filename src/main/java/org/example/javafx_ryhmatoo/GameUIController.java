@@ -202,9 +202,24 @@ public class GameUIController {
             writeToLog("Vale sõna: " + wordString);
             showWarning();
         }
-        while (lettersPane.getChildren().size() + wordBox.getChildren().size() < tähtedeArv) {
-            addLetter();
+
+        String tähed = "";
+
+        while (lettersPane.getChildren().size() + wordBox.getChildren().size() < tähtedeArv) addLetter();
+
+        if (lettersPane.getChildren().size() + wordBox.getChildren().size() >= tähtedeArv && lettersPane.getChildren().size() + wordBox.getChildren().size() <= 10) {
+            for (Node node : lettersPane.getChildren()) {
+                if (node instanceof Button) {
+                    tähed += ((Button) node).getText();
+                }
+            }
+            while (!mäng.kontroll.saabTehaSõna(tähed)) {
+                addLetter();
+                int element = lettersPane.getChildren().size() - 1;
+                tähed += ((Button) lettersPane.getChildren().get(element)).getText();
+            }
         }
+
     }
 
     private void showCorrect() {
