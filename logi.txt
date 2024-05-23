@@ -1,5 +1,5 @@
-2024-05-23T14:58:50.104218900Z - Õieti arvatud sõna: null
+2024-05-23T14:58:50.104218900Z - Ã•ieti arvatud sÃµna: null
 2024-05-23T14:58:53.826582Z - Programm suletud.
-2024-05-23T15:41:08.163204700Z - �ieti arvatud s�na: null
-2024-05-23T15:41:15.580367500Z - Vale s�na: rdb
+2024-05-23T15:41:08.163204700Z - Õieti arvatud sõna: null
+2024-05-23T15:41:15.580367500Z - Vale sõna: rdb
 2024-05-23T15:41:27.424369400Z - Programm suletud.

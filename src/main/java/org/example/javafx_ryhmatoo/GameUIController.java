@@ -17,6 +17,11 @@ import javafx.util.Duration;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
@@ -239,11 +244,13 @@ public class GameUIController {
     }
 
     public void writeToLog(String sõna) {
-        FileWriter writer = null;
+        Writer writer = null;
         try {
-            writer = new FileWriter("logi.txt", true);
+            // Open the file in append mode using Files API
+            writer = Files.newBufferedWriter(Paths.get("logi.txt"), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             String timestamp = Instant.now().toString();
             writer.write(timestamp + " - " + sõna + "\n");
+            writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -256,4 +263,5 @@ public class GameUIController {
             }
         }
     }
+
 }
