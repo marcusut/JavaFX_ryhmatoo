@@ -1,0 +1,2 @@
+2024-05-23T14:58:50.104218900Z - Õieti arvatud sõna: null
+2024-05-23T14:58:53.826582Z - Programm suletud.

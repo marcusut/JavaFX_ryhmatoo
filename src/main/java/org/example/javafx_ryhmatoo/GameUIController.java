@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.*;
 
 
@@ -28,7 +29,9 @@ public class GameUIController {
 
     private Mäng mäng;
 
-//    List<String> arvatudSõnad;
+    private List<String> arvatudSõnad = new ArrayList<>();
+    private Lemmad lemmad;
+
 
     @FXML
     private FlowPane lettersPane;
@@ -45,6 +48,8 @@ public class GameUIController {
 
     @FXML
     public void initialize() {
+        mäng = new Mäng();
+        lemmad = new Lemmad();
         mainVBox.setPadding(new Insets(15, 15, 15, 15));
         initLettersPane();
         initWordBox();
@@ -91,6 +96,10 @@ public class GameUIController {
 
     }
 
+
+    public Mäng getMäng() {
+        return this.mäng;
+    }
 
     private void initWordBox() {
         wordBox.setPadding(new Insets(15, 15, 15, 15));
@@ -182,15 +191,18 @@ public class GameUIController {
         String wordString = word.toString();
         if (mäng.arvaSõna(wordString)) {
             System.out.println("Õige sõna: " + wordString);
-                mäng.arvatudSõnad.add(wordString);
-                mäng.lemmad.eemaldaSõna(wordString);
+            arvatudSõnad.add(lemmad.getSõnaOriginaalVorm(wordString));
+            lemmad.eemaldaSõna(lemmad.getSõnaOriginaalVorm(wordString));
             showCorrect();
+            writeToLog("Õieti arvatud sõna: " + lemmad.getSõnaOriginaalVorm(wordString));
             wordBox.getChildren().clear();
+
         } else {
             System.out.println("Vale sõna: " + wordString);
+            writeToLog("Vale sõna: " + wordString);
             showWarning();
         }
-        while (lettersPane.getChildren().size() < tähtedeArv) {
+        while (lettersPane.getChildren().size() + wordBox.getChildren().size() < tähtedeArv) {
             addLetter();
         }
     }
@@ -211,14 +223,12 @@ public class GameUIController {
         pause.play();
     }
 
-    public void writeToLog() {
+    public void writeToLog(String sõna) {
         FileWriter writer = null;
         try {
             writer = new FileWriter("logi.txt", true);
-            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-            for (String sõna : mäng.arvatudSõnad) {
-                writer.write(timeStamp + " - " + sõna + "\n");
-            }
+            String timestamp = Instant.now().toString();
+            writer.write(timestamp + " - " + sõna + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
