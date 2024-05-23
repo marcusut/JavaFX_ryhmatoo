@@ -13,7 +13,7 @@
                     <children>
                         <Label text="Saadaval tähed:" HBox.hgrow="ALWAYS"/>
                         <FlowPane fx:id="lettersPane" HBox.hgrow="ALWAYS"/>
-                        <Button fx:id="plusButton" alignment="CENTER_RIGHT" onAction="#addLetter" text="+"
+                        <Button fx:id="plusButton" alignment="CENTER_RIGHT" onAction="#pluss" text="+"
                                 HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="14.0"/>

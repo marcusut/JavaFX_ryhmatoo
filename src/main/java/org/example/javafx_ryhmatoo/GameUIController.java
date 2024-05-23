@@ -15,16 +15,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GameUIController {
@@ -58,6 +57,7 @@ public class GameUIController {
         mainVBox.setPadding(new Insets(15, 15, 15, 15));
         initLettersPane();
         initWordBox();
+        writeToLog("Programmi käivitamine.\n\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/");
 
     }
 
@@ -186,6 +186,10 @@ public class GameUIController {
 
     @FXML
     private void submitWord() {
+        if (wordBox.getChildren().size() == 0) {
+            writeToLog("Tühi sisestusväli.");
+            return;
+        }
         StringBuilder word = new StringBuilder();
         for (Node node : wordBox.getChildren()) {
             if (node instanceof Button) {
@@ -212,10 +216,17 @@ public class GameUIController {
 
         while (lettersPane.getChildren().size() + wordBox.getChildren().size() < tähtedeArv) addLetter();
 
-        if (lettersPane.getChildren().size() + wordBox.getChildren().size() >= tähtedeArv && lettersPane.getChildren().size() + wordBox.getChildren().size() <= 10) {
+        if (lettersPane.getChildren().size() >= tähtedeArv && lettersPane.getChildren().size() + wordBox.getChildren().size() <= 10) {
             for (Node node : lettersPane.getChildren()) {
                 if (node instanceof Button) {
                     tähed += ((Button) node).getText();
+                }
+            }
+            if (wordBox.getChildren().size() > 0) {
+                for (Node node : wordBox.getChildren()) {
+                    if (node instanceof Button) {
+                        tähed += ((Button) node).getText();
+                    }
                 }
             }
             while (!mäng.kontroll.saabTehaSõna(tähed)) {
@@ -243,13 +254,13 @@ public class GameUIController {
         pause.play();
     }
 
-    public void writeToLog(String sõna) {
+    public void writeToLog(String sõnum) {
         Writer writer = null;
         try {
             // Open the file in append mode using Files API
             writer = Files.newBufferedWriter(Paths.get("logi.txt"), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             String timestamp = Instant.now().toString();
-            writer.write(timestamp + " - " + sõna + "\n");
+            writer.write(timestamp + " - " + sõnum + "\n");
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -262,6 +273,10 @@ public class GameUIController {
                 }
             }
         }
+    }
+    public void pluss() {
+        writeToLog("Küsis tähti juurde. Kahjuks ei tea mitu korda.");
+        addLetter();
     }
 
 }

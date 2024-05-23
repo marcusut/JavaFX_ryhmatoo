@@ -1,5 +1,85 @@
 2024-05-23T14:58:50.104218900Z - Ã•ieti arvatud sÃµna: null
 2024-05-23T14:58:53.826582Z - Programm suletud.
+
+
 2024-05-23T15:41:08.163204700Z - Õieti arvatud sõna: null
 2024-05-23T15:41:15.580367500Z - Vale sõna: rdb
 2024-05-23T15:41:27.424369400Z - Programm suletud.
+
+
+2024-05-23T16:02:03.920764700Z - Õieti arvatud sõna: null
+2024-05-23T16:02:19.928547900Z - Vale sõna: lib
+2024-05-23T16:02:42.387957700Z - Programm suletud.
+
+
+2024-05-23T16:08:57.680396800Z - Programm suletud.2024-05-23T16:10:27.545896700Z - Vale sõna: hup
+2024-05-23T16:10:29.278016Z - Programm suletud.
+ 
+ 
+2024-05-23T16:11:55.341619200Z - Vale sõna: 
+2024-05-23T16:11:57.054534200Z - Vale sõna: 
+2024-05-23T16:12:00.368354400Z - Programm suletud.
+ 
+ 
+2024-05-23T16:14:40.075524200Z - Programmi käivitamine.
+ 
+2024-05-23T16:16:36.486138700Z - Vale sõna: nägd
+2024-05-23T16:24:24.174584200Z - Programmi käivitamine.
+ 
+2024-05-23T16:24:34.033904600Z - Õieti arvatud sõna: null
+2024-05-23T16:24:36.063063800Z - Tühi sisestusväli.
+2024-05-23T16:24:37.761946Z - Tühi sisestusväli.
+2024-05-23T16:24:38.478394500Z - Tühi sisestusväli.
+2024-05-23T16:24:38.726553800Z - Tühi sisestusväli.
+2024-05-23T16:24:38.968610Z - Tühi sisestusväli.
+2024-05-23T16:24:48.664449700Z - Vale sõna: e
+2024-05-23T16:24:57.954553200Z - Vale sõna: eõa
+2024-05-23T16:25:01.097504300Z - Programm suletud.
+ 
+ 
+2024-05-23T16:34:00.768346100Z - Programmi käivitamine.
+ 
+2024-05-23T16:34:32.778783100Z - Tühi sisestusväli.
+2024-05-23T16:34:32.941798800Z - Tühi sisestusväli.
+2024-05-23T16:34:33.095617600Z - Tühi sisestusväli.
+2024-05-23T16:34:33.255271500Z - Tühi sisestusväli.
+2024-05-23T16:34:33.402823200Z - Tühi sisestusväli.
+2024-05-23T16:34:40.679846100Z - Õieti arvatud sõna: null
+2024-05-23T16:34:47.608818300Z - Vale sõna: dog
+2024-05-23T16:35:28.180957700Z - Õieti arvatud sõna: null
+2024-05-23T16:35:31.254568900Z - Mäng kasutaja poolt suletud.
+ 
+2024-05-23T16:35:31.337525800Z - Mäng lõplikult suletud.
+ 
+ 
+2024-05-23T16:42:13.282362200Z - Programmi käivitamine.
+\/\/\/\/\/\/\/\/
+2024-05-23T16:42:30.345300600Z - Vale sõna: n
+2024-05-23T16:42:31.241489800Z - Vale sõna: n
+2024-05-23T16:42:34.732583800Z - Tühi sisestusväli.
+2024-05-23T16:43:06.916446800Z - Õieti arvatud sõna: null
+2024-05-23T16:43:07.761508500Z - Tühi sisestusväli.
+2024-05-23T16:43:09.906450100Z - Mäng kasutaja poolt suletud.
+/\/\/\/\/\/\/\/\
+2024-05-23T16:43:10.023357500Z - Mäng lõplikult suletud.
+ 
+ 
+2024-05-23T16:46:52.319455500Z - Programmi käivitamine.
+\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+2024-05-23T16:46:58.548956900Z - Õieti arvatud sõna: null
+2024-05-23T16:47:01.373797500Z - Tühi sisestusväli.
+2024-05-23T16:47:02.525963200Z - Mäng kasutaja poolt suletud.
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+2024-05-23T16:47:02.618606900Z - Mäng lõplikult suletud.
+ 
+ 
+2024-05-23T16:47:46.201522Z - Programmi käivitamine.
+\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+2024-05-23T16:47:55.341553600Z - Vale sõna: kkk
+2024-05-23T16:47:57.564708700Z - Küsis tähte juurde
+2024-05-23T16:47:58.358959Z - Küsis tähte juurde
+2024-05-23T16:48:01.671910700Z - Mäng kasutaja poolt suletud.
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+2024-05-23T16:48:01.769765200Z - Mäng lõplikult suletud.
+ 
+ 

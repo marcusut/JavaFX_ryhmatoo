@@ -1,13 +1,11 @@
 package org.example.javafx_ryhmatoo;
 
-import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -28,13 +26,17 @@ public class GameUI extends Application {
 
         } catch (IOException e) {
             e.printStackTrace();
-
         }
 
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            gameUIController.writeToLog("Mäng lõplikult suletud.\n \n ");
+        }));
+
+
         primaryStage.setOnCloseRequest(event -> {
-            gameUIController.writeToLog("Programm suletud.");
+            gameUIController.writeToLog("Mäng kasutaja poolt suletud.\n/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\/\\");
             Platform.exit();
         });
-
     }
 }
