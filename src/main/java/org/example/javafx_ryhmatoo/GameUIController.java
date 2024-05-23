@@ -15,6 +15,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -53,12 +56,9 @@ public class GameUIController {
         lettersPane.setPadding(new Insets(15, 15, 15, 15));
         mäng = new Mäng(); // Create a new game
 
-        List<String> letters = generateLetters();
-        for (String letter : letters) {
-            Button letterButton = createLetterButton(letter);
-            lettersPane.getChildren().add(letterButton);
-        }
+        generateLetters();
     }
+
 
     @FXML
     private void addLetter() {
@@ -67,23 +67,30 @@ public class GameUIController {
         lettersPane.getChildren().add(letterButton);
     }
 
-    private List<String> generateLetters() {
-        List<String> letters = new ArrayList<>();
-        Random random = new Random();
-        Set<Character> usedLetters = new HashSet<>();
-        while (letters.size() < tähtedeArv) {
-            char letter = (char) ('a' + random.nextInt(26));
-            while (usedLetters.contains(letter)) {
-                letter = (char) ('a' + random.nextInt(26));
-            }
-            usedLetters.add(letter);
-            String letterString = String.valueOf(letter);
-            //if (mäng.kontroll.saabTehaSõna(letters.stream().map(String::toString).collect(Collectors.toList()) + letterString)) {
-            letters.add(letterString);
-            //}
+    private void generateLetters() {
+        String letters = "";
+
+        for (int i = 0; i < tähtedeArv; i++) {
+            String letter = mäng.genereeriÜksTäht();
+            letters += letter;
         }
-        return letters;
+        while (!mäng.kontroll.saabTehaSõna(letters)) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 7; i++) {
+                sb.append(mäng.genereeriÜksTäht());
+            }
+            letters = sb.toString();
+        }
+        char[] letterChars = letters.toCharArray();  // Convert String to character array
+
+        for (char letterChar : letterChars) {
+            String letterString = String.valueOf(letterChar); // Convert char to String
+            Button letterButton = createLetterButton(letterString);
+            lettersPane.getChildren().add(letterButton);
+        }
+
     }
+
 
     private void initWordBox() {
         wordBox.setPadding(new Insets(15, 15, 15, 15));
@@ -175,8 +182,8 @@ public class GameUIController {
         String wordString = word.toString();
         if (mäng.arvaSõna(wordString)) {
             System.out.println("Õige sõna: " + wordString);
-//            arvatudSõnad.add(mäng.lemmad.getSõnaOriginaalVorm(wordString));
-//            mäng.lemmad.eemaldaSõna(wordString);
+                mäng.arvatudSõnad.add(wordString);
+                mäng.lemmad.eemaldaSõna(wordString);
             showCorrect();
             wordBox.getChildren().clear();
         } else {
@@ -204,24 +211,24 @@ public class GameUIController {
         pause.play();
     }
 
-//    public void writeToLog() {
-//        FileWriter writer = null;
-//        try {
-//            writer = new FileWriter("logi.txt", true);
-//            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-//            for (String sõna : arvatudSõnad) {
-//                writer.write(timeStamp + " - " + sõna + "\n");
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (writer != null) {
-//                try {
-//                    writer.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
+    public void writeToLog() {
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("logi.txt", true);
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+            for (String sõna : mäng.arvatudSõnad) {
+                writer.write(timeStamp + " - " + sõna + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
